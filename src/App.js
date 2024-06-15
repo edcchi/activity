@@ -1,34 +1,23 @@
-// App.js
-
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Login from './Login';
-import Home from './Home';
-import About from './About';
-import Contact from './Contact';
-import NavBar from './NavBar';
+import Login from './Login.js';
+import NavBar from './NavBar.js';
+import Contact from './Contact.js';
+import Home from './Home.js';
+import About from './About.js';
 
-
-const App = () => {
+function App() {
+  const [currentPage, setCurrentPage] = useState('Login');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
-          {isLoggedIn && (
-            <>
-              <Route path="/home" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-            </>
-          )}
-        </Routes>
+    <div className="App">
+      <div className="content">
+      {!isLoggedIn && <Login setIsLoggedIn={setIsLoggedIn} setCurrentPage={setCurrentPage} />}
+      {isLoggedIn && <NavBar setCurrentPage={setCurrentPage} />}
       </div>
-    </Router>
+    </div>
   );
-};
+}
 
 export default App;
